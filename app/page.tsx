@@ -1,24 +1,43 @@
 'use client'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
-import  Pokedex, { NamedAPIResource } from 'pokedex-promise-v2';
+import  Pokedex, { NamedAPIResource, Pokemon } from 'pokedex-promise-v2';
 import PokeContainer from '@/components/PokeContainer';
 const P = new Pokedex();
 
+export interface PokemonPreviewData {
+  name: string;
+  imageURL: string;
+  types: string[];
+}
+
 export default function Home() {
-  const [pokemonData, setPokemonData] = useState<NamedAPIResource[]>([]);
+  const [pokemonData, setPokemonData] = useState<PokemonPreviewData[]>([]);
   const [loading, setLoading] = useState(false);
+  const test = Array.from({length: 151}, (_, index) => index + 1)
+  test.push(155)
+
+  
   useEffect(() => {
     setLoading(true);
-    P.getGenerationByName("generation-i")
+    P.getPokemonByName(test)
     .then((response) => {
-      setPokemonData(response.pokemon_species);
+      setPokemonData(
+        response.map((data: Pokemon) => {
+          return {
+            name: data.name,
+            imageURL: data.sprites.front_default || "",
+            types: data.types.map((item) => {
+              return item.type.name
+            }),
+          }
+        })
+      );
     })
-    .catch(() => {
-      console.log('Cannot fetch Gen-i')
+    .catch((error) => {
+      console.log('hi');
     })
     setLoading(false)
-
   },[])
 
 

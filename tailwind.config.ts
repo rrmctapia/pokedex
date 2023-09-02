@@ -31,10 +31,11 @@ const config: Config = {
         'dragon' : '#6F35FC',
         'dark' : '#705746',
         'steel' : '#B7B7CE',
+        'fairy' : '#D685AD'
       }
     },
   },
   plugins: [],
-  safelist: ['bg-fire', 'bg-water', 'bg-grass', 'bg-bug','bg-normal', 'bg-electric','bg-ice','bg-fighting','bg-poison', 'bg-ground', 'bg-flying','bg-psychic', 'bg-rock', 'bg-ghost','bg-dragon','bg-dark','bg-steel']
+  safelist: ['bg-fire', 'bg-water', 'bg-grass', 'bg-bug','bg-normal', 'bg-electric','bg-ice','bg-fighting','bg-poison', 'bg-ground', 'bg-flying','bg-psychic', 'bg-rock', 'bg-ghost','bg-dragon','bg-dark','bg-steel ,bg-fairy']
 }
 export default config
