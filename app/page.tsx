@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import  Pokedex, { NamedAPIResource, Pokemon } from 'pokedex-promise-v2';
 import PokeContainer from '@/components/PokeContainer';
+import { data } from 'autoprefixer';
 const P = new Pokedex();
 
 export interface PokemonPreviewData {
@@ -19,32 +20,30 @@ export default function Home() {
 
   
   useEffect(() => {
-    setLoading(true);
-    P.getPokemonByName(test)
+    Promise.all(test.map((id:number) => {  
+      return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        return {
+          name: data.name,
+          imageURL: data.sprites.front_default,
+          types: data.types.map((item: any) => {
+            return item.type.name
+          })
+        }
+      })
+    }))
     .then((response) => {
-      setPokemonData(
-        response.map((data: Pokemon) => {
-          return {
-            name: data.name,
-            imageURL: data.sprites.front_default || "",
-            types: data.types.map((item) => {
-              return item.type.name
-            }),
-          }
-        })
-      );
+      setPokemonData(response);
     })
-    .catch((error) => {
-      console.log('hi');
-    })
-    setLoading(false)
+
   },[])
 
 
   return (
     <main className="flex min-h-screen flex-wrap items-center justify-between p-24">
       <div>
-        {loading ? <p> Loading </p> : <PokeContainer pokeData={pokemonData} /> }
+        { <PokeContainer pokeData={pokemonData} /> }
       </div>
       
     </main>
