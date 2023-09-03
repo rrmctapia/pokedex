@@ -15,8 +15,7 @@ export interface PokemonPreviewData {
 export default function Home() {
   const [pokemonData, setPokemonData] = useState<PokemonPreviewData[]>([]);
   const [loading, setLoading] = useState(false);
-  const test = Array.from({length: 151}, (_, index) => index + 1)
-  test.push(155)
+  const test = Array.from({length: 1008}, (_, index) => index + 1)
 
   
   useEffect(() => {
@@ -26,7 +25,7 @@ export default function Home() {
       .then((data) => {
         return {
           name: data.name,
-          imageURL: data.sprites.front_default,
+          imageURL: data.sprites.other['official-artwork'].front_default,
           types: data.types.map((item: any) => {
             return item.type.name
           })
@@ -41,7 +40,7 @@ export default function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-wrap items-center justify-between p-24">
+    <main className="flex min-h-screen flex-wrap items-center justify-between p-24 sm:p-10">
       <div>
         { <PokeContainer pokeData={pokemonData} /> }
       </div>

@@ -21,26 +21,20 @@ const InfoCard = (props: PokemonPreviewData) => {
     });
 
 
-    // useEffect( () => {
-    //     setLoading(true)
-    //     P.getPokemonByName(props.name)
-    //     .then((response) => {
-    //         setStats({
-    //             types: response.types.map( (typeItem) => {
-    //                 return typeItem.type.name;
-    //             }),
-    //             front_sprite: response.sprites.front_default,
-    //             num: response.id
-    //         })
-    //     })
-    //     setLoading(false)
-    // },[])
-
 
   return (
-    <div className={`m-5 flex flex-col justify-center p-6 items-center text-center bg-${stats.types[0]} rounded-xl w-1/4 h-1/4 hover:border-white hover:border-2`}>
+    <div className={`m-5 flex flex-col justify-center p-2 items-center text-center bg-${props.types[0]} rounded-xl w-1/4 h-1/4 hover:border-white hover:border-2`}>
         <img src={ stats.imageURL || "" } alt={`sprite of ${props.name}`}/>
-        <h5 className="font-mono text-white"> {props.name }</h5>
+        <div className="bg-white w-full flex-col flex items-center rounded-md">
+          <h5 className="font-mono text-black"> {props.name }</h5>
+          <div className="flex flex-row">
+            {
+              stats.types.map((value:string) => {
+                return <p className={`bg-${value} m-2 rounded-xl p-2 sm: text-sm` } key={stats.name + "_" + value} > {value}</p>
+              })
+            }
+          </div>
+        </div>
     </div>
   )
 }
