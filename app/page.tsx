@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import  Pokedex, { NamedAPIResource, Pokemon } from 'pokedex-promise-v2';
 import PokeContainer from '@/components/PokeContainer';
 import { data } from 'autoprefixer';
+import SearchBar from '@/components/SearchBar';
 const P = new Pokedex();
 
 export interface PokemonPreviewData {
@@ -14,7 +15,7 @@ export interface PokemonPreviewData {
 
 export default function Home() {
   const [pokemonData, setPokemonData] = useState<PokemonPreviewData[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("")
   const test = Array.from({length: 1008}, (_, index) => index + 1)
 
   
@@ -41,10 +42,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-wrap items-center justify-between p-24 sm:p-10">
-      <div>
-        { <PokeContainer pokeData={pokemonData} /> }
-      </div>
-      
+        <SearchBar handleChange={setSearchTerm} />
+        { <PokeContainer pokeData={pokemonData.filter((pokeData) => {
+          return pokeData.name.includes(searchTerm.toLowerCase().trim())
+        })} /> 
+        }
     </main>
   )
 }

@@ -23,19 +23,21 @@ const InfoCard = (props: PokemonPreviewData) => {
 
 
   return (
-    <div className={`m-5 flex flex-col justify-center p-2 items-center text-center bg-${props.types[0]} rounded-xl w-1/4 h-1/4 hover:border-white hover:border-2`}>
-        <img src={ stats.imageURL || "" } alt={`sprite of ${props.name}`}/>
-        <div className="bg-white w-full flex-col flex items-center rounded-md">
-          <h5 className="font-mono text-black"> {props.name }</h5>
-          <div className="flex flex-row">
-            {
-              stats.types.map((value:string) => {
-                return <p className={`bg-${value} m-2 rounded-xl p-2 sm: text-sm` } key={stats.name + "_" + value} > {value}</p>
-              })
-            }
-          </div>
-        </div>
-    </div>
+      <div className={`flex flex-col m-1 items-center text-center bg-${props.types[0]} rounded-xl w-1/5 h-1/4 hover:border-white hover:border-2`}>
+        <button onClick={() => stats.name == "fuecoco" ? console.log('fucking  stupid') : console.log("fucking gottem")}>
+          <img src={ stats.imageURL || "" } alt={`sprite of ${props.name}`}/>
+            <div className="bg-white w-full flex-col flex items-center rounded-md">
+              <h5 className="font-mono text-black"> {props.name }</h5>
+              <div className="flex flex-row">
+                {
+                  stats.types.map((value:string) => {
+                    return <p className={`bg-${value} m-2 rounded-xl p-2 sm: text-sm` } key={stats.name + "_" + value} > {value}</p>
+                  })
+                }
+              </div>
+            </div>
+        </button>
+      </div>
   )
 }
 
