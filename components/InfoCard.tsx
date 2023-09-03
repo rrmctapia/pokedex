@@ -4,30 +4,26 @@ import  Pokedex from 'pokedex-promise-v2';
 import Image from 'next/image';
 import { PokemonPreviewData } from '@/app/page';
 
-interface pokemonDetails {
-    name: string;
-    url: string;
+interface infoCardProps {
+  singlePokemonPreviewData: PokemonPreviewData,
+  handleFocus: (x:string) => void
 }
 
-const P = new Pokedex();
-
-
-const InfoCard = (props: PokemonPreviewData) => {
-    const [loading, setLoading] = useState(true)
+const InfoCard = (props: infoCardProps) => {
     const [stats, setStats] = useState<PokemonPreviewData>( {
-        types: props.types,
-        imageURL: props.imageURL,
-        name: props.name
+        types: props.singlePokemonPreviewData.types,
+        imageURL: props.singlePokemonPreviewData.imageURL,
+        name: props.singlePokemonPreviewData.name
     });
 
 
 
   return (
-      <div className={`flex flex-col m-1 items-center text-center bg-${props.types[0]} rounded-xl w-1/5 h-1/4 hover:border-white hover:border-2`}>
-        <button onClick={() => stats.name == "fuecoco" ? console.log('fucking  stupid') : console.log("fucking gottem")}>
-          <img src={ stats.imageURL || "" } alt={`sprite of ${props.name}`}/>
+      <div className={`flex flex-col m-1 items-center text-center bg-${stats.types[0]} rounded-xl w-1/5 h-1/4 hover:border-white hover:border-2`}>
+        <button onClick={() => props.handleFocus(stats.name)}>
+          <img src={ stats.imageURL || "" } alt={`sprite of ${stats.name}`}/>
             <div className="bg-white w-full flex-col flex items-center rounded-md">
-              <h5 className="font-mono text-black"> {props.name }</h5>
+              <h5 className="font-mono text-black"> {stats.name }</h5>
               <div className="flex flex-row">
                 {
                   stats.types.map((value:string) => {

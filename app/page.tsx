@@ -5,6 +5,7 @@ import  Pokedex, { NamedAPIResource, Pokemon } from 'pokedex-promise-v2';
 import PokeContainer from '@/components/PokeContainer';
 import { data } from 'autoprefixer';
 import SearchBar from '@/components/SearchBar';
+import ModalCard from '@/components/ModalCard';
 const P = new Pokedex();
 
 export interface PokemonPreviewData {
@@ -17,6 +18,7 @@ export default function Home() {
   const [pokemonData, setPokemonData] = useState<PokemonPreviewData[]>([]);
   const [searchTerm, setSearchTerm] = useState("")
   const test = Array.from({length: 1008}, (_, index) => index + 1)
+  const [focusPokemon, setFocusPokemon] = useState("")
 
   
   useEffect(() => {
@@ -42,10 +44,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-wrap items-center justify-between p-24 sm:p-10">
+      <ModalCard name={focusPokemon} handleFocus={setFocusPokemon} />
         <SearchBar handleChange={setSearchTerm} />
         { <PokeContainer pokeData={pokemonData.filter((pokeData) => {
           return pokeData.name.includes(searchTerm.toLowerCase().trim())
-        })} /> 
+        })} handleFocus={setFocusPokemon}/> 
         }
     </main>
   )
