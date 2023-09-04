@@ -11,7 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [pokemonData, setPokemonData] = useState<PokemonPreviewData[] | []>([]); //all the pokemon 
   const [searchTerm, setSearchTerm] = useState("")
-  const pokemonIdList = Array.from({length: 1008}, (_, index) => index + 1)
+  const pokemonIdList = Array.from({length: 386}, (_, index) => index + 1)
   const [focusPokemon, setFocusPokemon] = useState<PokemonPreviewData | typeof EMPTY_PREVIEW_DATA>(EMPTY_PREVIEW_DATA)
   
   useEffect( () => {
