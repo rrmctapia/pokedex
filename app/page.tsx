@@ -12,6 +12,7 @@ export default function Home() {
   const [pokemonData, setPokemonData] = useState<PokemonPreviewData[] | []>([]); //all the pokemon 
   const [searchTerm, setSearchTerm] = useState("")
   const pokemonIdList = Array.from({length: 386}, (_, index) => index + 1)
+  pokemonIdList.push(909); //just to add fuecoco
   const [focusPokemon, setFocusPokemon] = useState<PokemonPreviewData | typeof EMPTY_PREVIEW_DATA>(EMPTY_PREVIEW_DATA)
   
   useEffect( () => {
